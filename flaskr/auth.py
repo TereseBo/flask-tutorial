@@ -75,7 +75,7 @@ def register():
 
         #: error is saved and can be retrieved when template is rendered?
         flash(error)
-    #: Will render the doc specified
+    #: Will render the doc specified, requires a template to be found
     return render_template('auth/register.html')
 
 
