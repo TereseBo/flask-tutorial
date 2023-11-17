@@ -1,6 +1,11 @@
+#: import something to access os to write files?
 import os
-from flask import Flask
 #: Imports flask instance?
+from flask import Flask
+#: imports db functions
+from . import db
+#: import auth containing blueprint
+from . import auth
 
 
 #: This is the application factory function
@@ -15,6 +20,7 @@ def create_app(test_config=None):
 
     #: load config if not testing config is present
     if test_config is None:
+        #: Use of different configs for dev, prod and test
         #: Override config in root folder?
         app.config.from_pyfile('config.py', silent=True)
     else:
@@ -32,6 +38,10 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+    #: Runs db init_app before returning app
+    db.init_app(app)
+    #: Register auth blueprint
+    app.register_blueprint(auth.bp)
     return app
 #: Returns an instance of app
-#: Use of different configs for dev, prod and test
+
