@@ -4,8 +4,8 @@ import os
 from flask import Flask
 #: imports db functions
 from . import db
-#: import auth containing blueprint
-from . import auth
+#: import auth and blog containing blueprint
+from . import auth, blog
 
 
 #: This is the application factory function
@@ -42,6 +42,10 @@ def create_app(test_config=None):
     db.init_app(app)
     #: Register auth blueprint
     app.register_blueprint(auth.bp)
+    #: Register blog bp
+    app.register_blueprint(blog.bp)
+    #: Associates / to the index name (both blog.index and index)
+    app.add_url_rule('/', endpoint='index')
     return app
 #: Returns an instance of app
 
